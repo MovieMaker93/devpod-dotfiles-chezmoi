@@ -6,7 +6,7 @@ install_on_ubuntu() {
     if which nix; then
         echo 'Nix is already installed'
     else
-        curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+        curl --location --silent https://nixos.org/nix/install | sh
     fi
 }
 
