@@ -10,6 +10,7 @@
         jetbrains-mono
         (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
         curl
+        neofetch
         wget
         unzip
         bat

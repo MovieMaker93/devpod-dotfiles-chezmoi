@@ -15,6 +15,7 @@ packages:
       - "unzip"
       - "go"
       - "lua"
+      - "neofetch"
       - "rust"
       - "groovy"
       - "yq"
