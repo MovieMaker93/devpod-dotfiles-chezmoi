@@ -6,7 +6,7 @@ install_on_ubuntu() {
     if which nix; then
         echo 'Nix is already installed'
     else
-        curl --location --silent https://nixos.org/nix/install | sh
+        sh <(curl -L https://nixos.org/nix/install) --no-daemon --init none
     fi
 }
 
