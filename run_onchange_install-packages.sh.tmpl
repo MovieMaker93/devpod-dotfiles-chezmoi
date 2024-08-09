@@ -1,0 +1,50 @@
+#!/bin/bash
+{{ if eq .chezmoi.os "darwin" }}
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range .packages.universal.tap -}}
+tap {{ . | quote | replace " " "\", \"" }}
+{{ end -}}
+{{ range .packages.universal.brews -}}
+brew {{ . | quote }}
+{{ end -}}
+{{ range .packages.universal.casks -}}
+cask {{ . | quote }}
+{{ end -}}
+EOF
+{{ else if eq .chezmoi.os "linux" }}
+# install Nix packages from config.nix
+nix-env -iA nixpkgs.myPackages
+{{ end -}}
+
+
+
+bw login
+export BW_SESSION=$(bw unlock --raw)
+
+# Import gpg key
+GPG_KEY=$(bw get notes "GPG Private Key")
+
+if [ -z "$GPG_KEY" ]; then
+    echo "Failed to retrieve GPG key from Bitwarden"
+    exit 1
+fi
+
+# Extract the email from the GPG key
+EMAIL=$(echo "$GPG_KEY" | grep -oP '(?<=<).*(?=>)')
+
+# Check if the key is already imported
+if gpg --list-secret-keys "$EMAIL" > /dev/null 2>&1; then
+    echo "GPG key for $EMAIL is already imported"
+else
+    echo "Importing GPG key for $EMAIL"
+    # Save the GPG key to a temporary file
+    TMP_KEY_FILE=$(mktemp)
+    echo "$GPG_KEY" > "$TMP_KEY_FILE"
+
+    # Import the GPG key
+    gpg --import "$TMP_KEY_FILE"
+
+    # Clean up
+    rm "$TMP_KEY_FILE"
+fi

@@ -1,0 +1,15 @@
+[user]
+	mail = alfofed@gmail.com
+	name = Alfonso Fortunato
+	email = alfofed@gmail.com
+	signingkey = FD95CBFD07806A28
+[credential]
+	helper = store
+[commit]
+    gpgsign = true
+[core]
+    editor = nvim
+[init]
+    defaultBranch = main
+[gpg]
+    program = gpg
