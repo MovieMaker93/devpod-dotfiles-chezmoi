@@ -23,6 +23,7 @@ autoload bashcompinit && bashcompinit
 autoload -Uz compinit
 compinit
 source <(kubectl completion zsh)
+source $ZSH/oh-my-zsh.sh
 
 
 # Set list of themes to pick from when loading at random
@@ -86,8 +87,6 @@ source <(kubectl completion zsh)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many pluginsslow down shell startup.
 plugins=(git dnf pass zsh-autosuggestions  kubectx)
-
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
