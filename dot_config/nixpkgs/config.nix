@@ -7,6 +7,7 @@
         neovim
         git
         htop
+        direnv
         jetbrains-mono
         (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
         curl
