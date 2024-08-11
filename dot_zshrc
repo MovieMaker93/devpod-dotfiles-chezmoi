@@ -170,6 +170,9 @@ compinit -u
 
 zstyle ':completion:*' menu select
 
+# --------------------- Direnv hook -------------------
+eval "$(direnv hook zsh)"
+
 # Example to install completion:
 # talosctl completion zsh > ~/.zfunc/_talosctl
 neofetch
