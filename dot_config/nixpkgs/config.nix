@@ -11,7 +11,10 @@
         jetbrains-mono
         (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
         curl
+        gnupg
         neofetch
+        sops
+        fluxcd
         wget
         unzip
         bat
