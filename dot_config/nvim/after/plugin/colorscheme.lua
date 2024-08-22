@@ -3,7 +3,7 @@ require("tokyonight").setup({
 	terminal_colors = true,
 	transparent = true,
 })
-vim.cmd.colorscheme("tokyonight")
+vim.cmd.colorscheme("gruvbox-material")
 vim.opt.termguicolors = true
 require("bufferline").setup({
 	options = {
