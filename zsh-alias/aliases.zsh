@@ -3,8 +3,10 @@ alias md="mkdir"
 
 #alias cd
 alias script='cd $SCRIPTS'
-alias cdblog="cd ~/websites/blog/blog-site/"
+alias cdblog="cd ~/websites/blog-site/blog/"
 alias cdpblog='cd $VAULT/Areas/Blogging/content'
+alias vault='cd $VAULT'
+alias nconf='cd $HOME/.config/nvim/'
 
 #repos
 alias hl='cd $HOMELAB'
@@ -48,6 +50,7 @@ alias gco='git checkout'
 alias gp='git push origin $(git rev-parse --abbrev-ref HEAD)'
 alias gmg='git merge'
 alias gpf='git push --force'
+alias lg='lazygit'
 
 # gcap: commit all and push
 gcap() {
@@ -77,3 +80,5 @@ mdcd() {
   mkdir -p -- "$1" && cd -P -- "$1"
 }
 
+#flux short
+alias fgk='flux get kustomization'
