@@ -175,5 +175,5 @@ zstyle ':completion:*' menu select
 eval "$(direnv hook zsh)"
 
 # Example to install completion:
-# talosctl completion zsh > ~/.zfunc/_talosctl
+# kubectl completion zsh > ~/.zfunc/_kubectl
 neofetch
