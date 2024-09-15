@@ -6,8 +6,7 @@ if type bw >/dev/null 2>&1; then
 else
     case "$(uname -s)" in
     Darwin)
-        brew install --cask 1password
-        brew install 1password-cli
+        brew install bitwarden-cli
         ;;
     Linux*)
         nix-env -iA nixpkgs.bitwarden-cli
