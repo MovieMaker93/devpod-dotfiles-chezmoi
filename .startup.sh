@@ -2,7 +2,7 @@
 
 set -ex
 
-install_on_ubuntu() {
+install_on_linux() {
     if which nix; then
         echo 'Nix is already installed'
     else
@@ -32,11 +32,7 @@ OS="$(uname -s)"
 case "${OS}" in
 Linux*)
     if [ -f /etc/lsb-release ]; then
-        install_on_ubuntu
-    else
-        echo "Unsupported Linux distribution"
-        exit 1
-    fi
+        install_on_linux
     ;;
 Darwin*)
     install_on_mac

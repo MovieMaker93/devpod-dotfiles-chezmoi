@@ -65,6 +65,8 @@ If you're satisfied with the changes, apply them:
 chezmoi apply
 ```
 
+---
+
 <p align="center">
   <a href="https://alfonsofortunato.com/posts/dotfile/">
     <img alt="Static Badge" src="https://img.shields.io/badge/Blog_Posts-Go?style=for-the-badge&label=%F0%9F%92%ADRead&color=%237aa2f7">
