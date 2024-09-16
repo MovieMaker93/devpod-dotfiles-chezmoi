@@ -2,7 +2,7 @@
   <a href="https://alfonsofortunato.com">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://alfonsofortunato.com/img/logo.png">
-      <img src="https://alfonsofortunato.com/img/logo.png" height="100">
+      <img src="https://alfonsofortunato.com/img/logo.png" height="90">
     </picture>
     <h1 align="center">Dotfiles MacOS and Linux</h1>
   </a>
