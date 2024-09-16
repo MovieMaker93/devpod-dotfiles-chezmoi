@@ -15,7 +15,7 @@
   <!-- <a href="https://github.com/MovieMaker93/devpod-dotfiles-chezmoi/actions/workflows/"> -->
   <!-- </a> -->
   <a href="https://github.com/MovieMaker93/devpod-dotfiles-chezmoi/blob/main/LICENSE">
-    <img alt="License" src="https://img.shields.io/github/license/MovieMaker93/devpod-dotfiles-chezmoi?style=for-the-badge&logo=github&color=%239ece6a">
+    <img alt="License" src="https://img.shields.io/github/license/MovieMaker93/devpod-dotfiles-chezmoi?style=for-the-badge&logo=github&color=%a5fc03">
   </a>
   <a href="https://github.com/MovieMaker93/devpod-dotfiles-chezmoi/stars">
     <img alt="stars" src="https://img.shields.io/github/stars/MovieMaker93/devpod-dotfiles-chezmoi?style=for-the-badge&logo=github&color=%23f7768e">
