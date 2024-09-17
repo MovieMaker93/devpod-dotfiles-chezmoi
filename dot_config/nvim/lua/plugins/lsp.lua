@@ -163,7 +163,7 @@ return {
 					-- "groovyls",
 					"gopls",
 					"pylsp",
-					"tsserver",
+					-- "ts_ls",
 					"rust_analyzer",
 					"yamlls",
 					"terraformls",

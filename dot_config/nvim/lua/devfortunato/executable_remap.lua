@@ -12,6 +12,10 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<leader>k", "<cmd>cnext<CR>zz", { desc = "Forward qfixlist" })
 vim.keymap.set("n", "<leader>j", "<cmd>cprev<CR>zz", { desc = "Backward qfixlist" })
 
+-- -- Navigate between location list items
+-- vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Forward location list" })
+-- vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Backward location list" })
+
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
