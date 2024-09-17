@@ -31,8 +31,7 @@ install_brew() {
 OS="$(uname -s)"
 case "${OS}" in
 Linux*)
-    if [ -f /etc/lsb-release ]; then
-        install_on_linux
+    install_on_linux
     ;;
 Darwin*)
     install_on_mac
