@@ -15,15 +15,48 @@ jobs:
             dot_local,
             tmux_layouts,
             zsh-alias,
-            dot_zshrc,
-            dot_tmux.conf,
-            dot_wezterm.lua,
           ]
         repo: [dotfile-slim]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Sync Zshrc
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
+        with:
+          source_file: "dot_zshrc"
+          destination_repo: "MovieMaker93/${{ matrix.repo }}"
+          destination_folder: "/" 
+          uuser_email: "39483124+alfonsofortunato@users.noreply.github.com"
+          user_name: "Alfonso_Fortunato"
+          commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from moviemaker/nix"
+          git_server: "github.com"
+      - name: Sync Tmux conf
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
+        with:
+          source_file: "dot_tmux.conf"
+          destination_repo: "MovieMaker93/${{ matrix.repo }}"
+          destination_folder: "/" 
+          uuser_email: "39483124+alfonsofortunato@users.noreply.github.com"
+          user_name: "Alfonso_Fortunato"
+          commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from moviemaker/nix"
+          git_server: "github.com"
+      - name: Sync Wezterm conf
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
+        with:
+          source_file: "dot_wezterm.lua"
+          destination_repo: "MovieMaker93/${{ matrix.repo }}"
+          destination_folder: "/" 
+          uuser_email: "39483124+alfonsofortunato@users.noreply.github.com"
+          user_name: "Alfonso_Fortunato"
+          commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from moviemaker/nix"
+          git_server: "github.com"
       - name: Sync ${{ matrix.file }} to ${{ matrix.repo }}
         uses: scottmckendry/repo-files-clean-copy-sync@main
         env:
