@@ -55,7 +55,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
         with:
-          source_file: "tmux_layout/"
+          source_file: "tmux_layouts/"
           destination_repo: "MovieMaker93/${{ matrix.repo }}"
           destination_folder: "/" 
           user_email: "39483124+alfonsofortunato@users.noreply.github.com"
