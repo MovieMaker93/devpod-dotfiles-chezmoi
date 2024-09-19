@@ -9,13 +9,6 @@ jobs:
     strategy:
       max-parallel: 3
       matrix:
-        file:
-          [
-            dot_config,
-            dot_local,
-            tmux_layouts,
-            zsh-alias,
-          ]
         repo: [dotfile-slim]
     runs-on: ubuntu-latest
     steps:
@@ -27,6 +20,54 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
         with:
           source_file: "dot_zshrc"
+          destination_repo: "MovieMaker93/${{ matrix.repo }}"
+          destination_folder: "/" 
+          uuser_email: "39483124+alfonsofortunato@users.noreply.github.com"
+          user_name: "Alfonso_Fortunato"
+          commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from moviemaker/nix"
+          git_server: "github.com"
+      - name: Sync Config Directories
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
+        with:
+          source_file: "dot_config/"
+          destination_repo: "MovieMaker93/${{ matrix.repo }}"
+          destination_folder: "/" 
+          uuser_email: "39483124+alfonsofortunato@users.noreply.github.com"
+          user_name: "Alfonso_Fortunato"
+          commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from moviemaker/nix"
+          git_server: "github.com"
+      - name: Sync Local Directories
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
+        with:
+          source_file: "dot_local/"
+          destination_repo: "MovieMaker93/${{ matrix.repo }}"
+          destination_folder: "/" 
+          uuser_email: "39483124+alfonsofortunato@users.noreply.github.com"
+          user_name: "Alfonso_Fortunato"
+          commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from moviemaker/nix"
+          git_server: "github.com"
+      - name: Sync Tmux Layouts
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
+        with:
+          source_file: "tmux_layout/"
+          destination_repo: "MovieMaker93/${{ matrix.repo }}"
+          destination_folder: "/" 
+          uuser_email: "39483124+alfonsofortunato@users.noreply.github.com"
+          user_name: "Alfonso_Fortunato"
+          commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from moviemaker/nix"
+          git_server: "github.com"
+      - name: Sync ZSH aliases
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
+        with:
+          source_file: "zsh-alias/"
           destination_repo: "MovieMaker93/${{ matrix.repo }}"
           destination_folder: "/" 
           uuser_email: "39483124+alfonsofortunato@users.noreply.github.com"
