@@ -98,15 +98,3 @@ jobs:
           user_name: "Alfonso_Fortunato"
           commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from moviemaker/nix"
           git_server: "github.com"
-      - name: Sync ${{ matrix.file }} to ${{ matrix.repo }}
-        uses: scottmckendry/repo-files-clean-copy-sync@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
-        with:
-          source_file: "${{ matrix.file }}/"
-          destination_repo: "MovieMaker93/${{ matrix.repo }}"
-          destination_folder: "/"
-          user_email: "39483124+alfonsofortunato@users.noreply.github.com"
-          user_name: "Alfonso_Fortunato"
-          commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from moviemaker/nix"
-          git_server: "github.com"
