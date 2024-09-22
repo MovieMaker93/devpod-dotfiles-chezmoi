@@ -152,12 +152,12 @@ vim.api.nvim_create_user_command("GoTestRun", function()
 	attach_to_buffer(vim.api.nvim_get_current_buf(), "*.go", { "go", "test", "./...", "-v", "-json" })
 end, {})
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-	group = group,
-	pattern = "*",
-	desc = "Remove withespace on save",
-	command = "%s/\\s\\+$//e",
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+-- 	group = group,
+-- 	pattern = "go",
+-- 	desc = "Remove withespace on save",
+-- 	command = "%s/\\s\\+$//e",
+-- })
 
 -- Toggle inline hinting
 vim.api.nvim_create_user_command("EnableInline", function()

@@ -14,7 +14,7 @@ return {
 				rust = { "rustfmt" },
 				json = { "prettier" },
 				css = { "prettier" },
-				markdown = { "prettier" },
+				-- markdown = { "prettier" },
 				tf = { "tflint" },
 			},
 			format_on_save = {
