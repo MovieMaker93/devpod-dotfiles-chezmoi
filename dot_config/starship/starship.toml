@@ -1,0 +1,102 @@
+add_newline = false
+# A minimal left prompt
+format = """$directory$character"""
+palette = "gruvbox_dark"
+# move the rest of the prompt to the right
+right_format = """$all"""
+command_timeout = 1000
+
+[directory.substitutions]
+'~/tests/starship-custom' = 'work-project'
+'/home/moviemaker/workspace/note-taking/zettelkasten-vault/PKM system' = 'Alfonso-Zettelkasten' 
+
+[username]
+style_user = "bg:color_orange fg:color_fg0"
+style_root = "bg:color_orange fg:color_fg0"
+format = '[](color_orange)$user ($style) ]'
+disabled = true
+show_always = true
+aliases = { "moviemaker" = "alfonsofortunato" }
+
+[time]
+disabled = false
+style = "bg:color_bg1"
+format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
+time_format = '%T'
+utc_time_offset = '+2'
+# time_range = '10:00:00-14:00:00'
+
+[gcloud]
+disabled = true
+[aws]
+format = '[$symbol(profile: "$profile" )(\(region: $region\) )]($style)'
+disabled = true
+style = 'bold blue'
+symbol = " "
+
+# [git_branch]
+# format =  '[$symbol$branch(:$remote_branch)]($style)'
+
+[git_branch]
+format =  'on [$symbol$branch(:$remote_branch)]($style)'
+
+[git_status]
+# style = "bg:color_aqua"
+format = '[($all_status$ahead_behind )]($style)'
+
+[golang]
+format = '[ ](bold cyan)'
+
+[kubernetes]
+symbol = '☸ '
+disabled = false
+# detect_files = ['Dockerfile']
+# style = "fg:color_fg0 bg:color_blue"
+format = '[$symbol$context( \($namespace\))]($style) '
+# contexts = [
+#   { context_pattern = "arn:aws:eks:us-west-2:577926974532:cluster/zd-pvc-omer", style = "green", context_alias = "omerxx", symbol = " " },
+# ]
+
+[docker_context]
+disabled = true
+
+# ~/.config/starship.toml
+
+[palettes.gruvbox_dark]
+color_fg0 = '#fbf1c7'
+color_bg1 = '#3c3836'
+color_bg3 = '#665c54'
+color_blue = '#458588'
+color_aqua = '#689d6a'
+color_green = '#98971a'
+color_orange = '#d65d0e'
+color_purple = '#b16286'
+color_red = '#cc241d'
+color_yellow = '#d79921'
+# [palettes.catppuccin_mocha]
+# rosewater = "#f5e0dc"
+# flamingo = "#f2cdcd"
+# pink = "#f5c2e7"
+# mauve = "#cba6f7"
+# red = "#f38ba8"
+# maroon = "#eba0ac"
+# peach = "#fab387"
+# yellow = "#f9e2af"
+# green = "#a6e3a1"
+# teal = "#94e2d5"
+# sky = "#89dceb"
+# sapphire = "#74c7ec"
+# blue = "#89b4fa"
+# lavender = "#b4befe"
+# text = "#cdd6f4"
+# subtext1 = "#bac2de"
+# subtext0 = "#a6adc8"
+# overlay2 = "#9399b2"
+# overlay1 = "#7f849c"
+# overlay0 = "#6c7086"
+# surface2 = "#585b70"
+# surface1 = "#45475a"
+# surface0 = "#313244"
+# base = "#1e1e2e"
+# mantle = "#181825"
+# crust = "#11111b"
