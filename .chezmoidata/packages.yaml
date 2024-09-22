@@ -27,6 +27,7 @@ packages:
       - "python"
       - "tmuxinator"
       - "yarn"
+      - "starship"
     casks:
       - "alfred"
       - "obsidian"

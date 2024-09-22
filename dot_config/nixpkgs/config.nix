@@ -15,6 +15,7 @@
         neofetch
         sops
         fluxcd
+        starship
         wget
         unzip
         bat
