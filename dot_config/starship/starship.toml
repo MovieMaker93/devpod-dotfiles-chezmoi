@@ -42,7 +42,11 @@ format =  'on [$symbol$branch(:$remote_branch)]($style)'
 
 [git_status]
 # style = "bg:color_aqua"
-format = '[($all_status$ahead_behind )]($style) '
+format = '([\[$all_status$ahead_behind\]]($style) ) '
+untracked = '?${count}'
+ahead = '⇡${count}'
+staged = '[++\($count\)](green)'
+modified = '!${count}'
 
 [golang]
 format = '[ ](bold cyan)'
