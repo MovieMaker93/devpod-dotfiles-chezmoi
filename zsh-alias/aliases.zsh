@@ -7,6 +7,7 @@ alias cdblog="cd ~/websites/blog-site/blog/"
 alias cdpblog='cd $VAULT/Areas/Blogging/content'
 alias vault='cd $VAULT'
 alias nconf='cd $HOME/.config/nvim/'
+alias star='cd /home/moviemaker/.config/starship'
 
 #repos
 alias hl='cd $HOMELAB'
@@ -24,10 +25,10 @@ alias tns='tmux new -s $(echo $(pwd) | xargs basename)'
 alias tx=tmuxifier
 
 #fzf azlias
-alias fzfb='fzf --preview "bat --color always --style numbers {}"'
+alias fzfb='fzf --preview "bat --color always --style numbers,changes {}"'
 
 #cat alias
-alias cat='bat --paging never --theme DarkNeon --style plain'
+alias cat='bat --paging never --theme DarkNeon --style plain,changes'
 
 #kubectl aliases
 alias k='kubectl'

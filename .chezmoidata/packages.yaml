@@ -13,6 +13,7 @@ packages:
       - "npm"
       - "wget"
       - "unzip"
+      - "bat"
       - "go"
       - "lua"
       - "neofetch"
