@@ -61,7 +61,7 @@ if [[ $youtube_id == *"&"* ]]; then
 fi
 
 # Retrieve the transcript
-summary=$(youtube_transcript_api $youtube_id | mods "Here's a few lines from a youtube transcript i extracted. I want to pull the text out and have you analyze it and edit it appropriately for punctuation and grammar. Give me as output a summaries with bullet points " --max-tokens 500)
+summary=$(youtube_transcript_api $youtube_id | mods "Here's a few lines from a youtube transcript i extracted. I want to pull the text out and have you analyze it and edit it appropriately for punctuation and grammar. Give me, as output, a summary with bullet points" --max-tokens 500)
 
 # Grab the title
 title=$(
