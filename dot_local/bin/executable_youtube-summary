@@ -1,0 +1,71 @@
+#!/bin/bash
+
+set -e
+
+# env variables OPENAI_API_KEY, VAULT , youtube api key: KEY
+
+write_to_file_zettel() {
+
+    #open zettel inbox
+    inbox="Inbox"
+    zettel="$VAULT$inbox"
+    cd "$zettel" || exit
+    # Create the file with the name as the title of Youtube video
+    if [[ -z $1 ]]; then
+        echo "Cannot grab youtube title"
+        exit 1
+    fi
+
+    touch "$zettel/$1.md"
+
+    timestamp="$(date "+%d-%m-%y")"
+
+    # format the file
+    {
+        echo "# $1"
+        echo -en "\n"
+        echo "#video"
+        echo "#consume"
+        echo -en "\n"
+        echo "$2"
+        echo -en "\n"
+        echo "Links:"
+        echo -en "\n"
+        echo "[[$timestamp]]"
+    } >>"$zettel/$1.md"
+
+    # Open the file in Neovim
+    nvim '+ normal ggzzi' "$zettel/$1.md"
+
+}
+
+youtube_video=$1
+youtube_url="https://www.youtube.com/watch?"
+
+if [[ -z $youtube_video ]]; then
+    echo "No url provided" >&2 # Print error to stderr
+    exit 1                     # Exit with non-zero status
+fi
+
+if [[ $youtube_video == "$youtube_url"* ]]; then
+    echo "Url is correct"
+else
+    echo "The youtube url is not well formatted" >&2
+    exit 1
+fi
+
+youtube_id=$(echo "$youtube_video" | awk -F'v=' '{print $2}')
+if [[ $youtube_id == *"&"* ]]; then
+    youtube_id=$(echo "$youtube_id" | awk -F'&' '{print $1}')
+    echo "Youtube id: $youtube_id"
+fi
+
+# Retrieve the transcript
+summary=$(youtube_transcript_api $youtube_id | mods "Here's a few lines from a youtube transcript i extracted. I want to pull the text out and have you analyze it and edit it appropriately for punctuation and grammar. Give me as output a summaries with bullet points " --max-tokens 500)
+
+# Grab the title
+title=$(
+    curl "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=$youtube_id&key=$KEY" | jq '.items[0].snippet.title'
+)
+
+write_to_file_zettel "$title" "$summary"
