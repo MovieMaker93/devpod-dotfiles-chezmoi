@@ -57,7 +57,8 @@ source_if_exists "$HOME/.fzf.zsh"
 export PATH=$HOME/bin:$HOME/.tmux/plugins/tmuxifier/bin:$SCRIPTS:$PATH
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export LOCAL_BIN=$HOME/.local
+export PATH=$GOPATH/bin:$GOROOT/bin:$LOCAL_BIN/bin:$PATH
 
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
