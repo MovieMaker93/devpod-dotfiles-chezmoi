@@ -63,7 +63,7 @@ return {
 		end,
 		templates = {
 			folder = "Templates",
-			date_format = "%d%m%Y%a",
+			date_format = "%d-%m-%Y",
 			time_format = "%H:%M",
 		},
 		-- Optional, by default when you use `:ObsidianFollowLink` on a link to an external
