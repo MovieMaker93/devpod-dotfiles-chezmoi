@@ -60,13 +60,12 @@ export GOPATH=$HOME/go
 export LOCAL_BIN=$HOME/.local
 export PATH=$GOPATH/bin:$GOROOT/bin:$LOCAL_BIN/bin:$PATH
 
-# if [ -z "$TMUX" ]; then
-#     tmux attach -t default || tmux new -s default
-# fi
-eval "$(tmuxifier init -)"
+if [ -z "$TMUX" ]; then
+    tmux attach -t default || tmux new -s default
+fi
 
 # Turso
-export PATH="/home/moviemaker/.turso:$PATH"
+# export PATH="/home/moviemaker/.turso:$PATH"
 
 # ~~~~~~~~~~~~~~~ Completion ~~~~~~~~~~~~~~~~~~~~~~~~
 
