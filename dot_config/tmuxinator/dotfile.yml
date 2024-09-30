@@ -1,9 +1,8 @@
-# /home/moviemaker/.config/tmuxinator/vault.yml
+# /home/moviemaker/.config/tmuxinator/dotfile.yml
 
-name: vault
-root: /home/moviemaker/workspace/note-taking/zettelkasten-vault/PKM system
+name: dotfile
+root: /home/moviemaker/.local/share/chezmoi
 # Optional tmux socket
-
 # socket_name: foo
 
 # Note that the pre and post options have been deprecated and will be replaced by
@@ -39,15 +38,15 @@ root: /home/moviemaker/workspace/note-taking/zettelkasten-vault/PKM system
 # startup_window: editor
 
 # Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
-# startup_pane: 1
-
+startup_pane: 1
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
 windows:
-  - vault:
-      layout: main-vertical
+  - editor:
+      layout: tiled
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        - v Inbox
+        - fv
+        - git status

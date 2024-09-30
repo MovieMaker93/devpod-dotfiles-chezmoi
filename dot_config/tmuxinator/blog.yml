@@ -1,9 +1,8 @@
-# /home/moviemaker/.config/tmuxinator/vault.yml
+# /home/moviemaker/.config/tmuxinator/blog.yml
 
-name: vault
-root: /home/moviemaker/workspace/note-taking/zettelkasten-vault/PKM system
+name: blog
+root: /home/moviemaker/websites/blog-site/blog
 # Optional tmux socket
-
 # socket_name: foo
 
 # Note that the pre and post options have been deprecated and will be replaced by
@@ -44,10 +43,10 @@ root: /home/moviemaker/workspace/note-taking/zettelkasten-vault/PKM system
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
 windows:
-  - vault:
+  - blog:
       layout: main-vertical
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        - v Inbox
+        - v content/en/posts
