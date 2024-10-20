@@ -19,6 +19,9 @@ source_if_exists () {
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
+## ZELLIJ ##
+# zsh <(curl -L zellij.dev/launch)
+
 export EDITOR='nvim'
 export REPOS="$HOME/Repos"
 export GITUSER="MovieMaker93"
@@ -32,11 +35,11 @@ export TERM=screen-256color
 export XDG_CONFIG_HOME=$HOME/.config
 export TMUXIFIER_LAYOUT_PATH="$HOME/tmux_layouts/layout/"
 
-## HISTORY ##
-#############
-HISTFILE=$HOME/.zsh_history
-HISTSIZE=50000
-SAVEHIST=50000
+# ## HISTORY ##
+# #############
+# HISTFILE=$HOME/.zsh_history
+# HISTSIZE=50000
+# SAVEHIST=50000
 
 setopt EXTENDED_HISTORY
 setopt HIST_VERIFY
@@ -54,15 +57,20 @@ source_if_exists "$HOME/.aliases.local"
 source_if_exists "$HOME/.fzf.zsh"
 
 ## PATH ##
-export PATH=$HOME/bin:$HOME/.tmux/plugins/tmuxifier/bin:$SCRIPTS:$PATH
+export PATH=$HOME/bin:$SCRIPTS:$PATH
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export LOCAL_BIN=$HOME/.local
 export PATH=$GOPATH/bin:$GOROOT/bin:$LOCAL_BIN/bin:$PATH
 
-if [ -z "$TMUX" ]; then
-    tmux attach -t default || tmux new -s default
-fi
+## TMUX and TMUXINATOR ##
+# if [ -z "$TMUX" ]; then
+#     tmux attach -t default || tmux new -s default
+# fi
+# tmuxinator start dotfile
+# tmuxinator start blog
+# tmuxinator start vault
+# tmuxinator start golang
 
 # Turso
 # export PATH="/home/moviemaker/.turso:$PATH"
@@ -84,3 +92,7 @@ eval "$(direnv hook zsh)"
 # Example to install completion:
 # talosctl completion zsh > ~/.zfunc/_talosctl
 neofetch
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
