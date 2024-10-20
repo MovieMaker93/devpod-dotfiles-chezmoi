@@ -1,6 +1,6 @@
 packages:
   universal:
-    taps:
+    tap:
       - "1password/tap"
       - "homebrew/bundle"
       - "git-duet/tap"
@@ -32,6 +32,5 @@ packages:
     casks:
       - "alfred"
       - "obsidian"
-      - "docker"
       - "wezterm"
       - "rectangle"
