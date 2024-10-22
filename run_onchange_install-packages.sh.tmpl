@@ -24,7 +24,6 @@ export BW_SESSION=$(bw unlock --raw)
 
 # Import gpg key
 GPG_KEY=$(bw get notes "GPG Private Key")
-sleep 5
 if [ -z "$GPG_KEY" ]; then
     echo "Failed to retrieve GPG key from Bitwarden"
     exit 1
