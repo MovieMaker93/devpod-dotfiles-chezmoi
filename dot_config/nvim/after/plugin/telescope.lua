@@ -4,6 +4,11 @@ vim.keymap.set("n", "<C-p>", builtin.git_files, {})
 vim.keymap.set("n", "<leader>ps", function()
 	builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)
+vim.keymap.set("n", "<leader>ec", function()
+	builtin.find_files({
+		cwd = vim.fn.stdpath("config"),
+	})
+end)
 vim.keymap.set("n", "<leader>pb", builtin.buffers, {})
 vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
 vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })

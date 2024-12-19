@@ -73,7 +73,6 @@ return {
 					}),
 				},
 				experimental = {
-					-- I like the new menu better! Nice work hrsh7th
 					native_menu = false,
 				},
 				mapping = cmp.mapping.preset.insert({
@@ -109,16 +108,6 @@ return {
 			require("neodev").setup({})
 			local lsp_zero = require("lsp-zero")
 			lsp_zero.extend_lspconfig()
-			lsp_zero.set_preferences({
-				suggest_lsp_servers = false,
-				sign_icons = {
-					error = "E",
-					warn = "W",
-					hint = "H",
-					info = "I",
-				},
-			})
-
 			---@diagnostic disable-next-line: trailing-space
 
 			---@diagnostic disable-next-line: unused-local
@@ -160,10 +149,8 @@ return {
 
 			require("mason-lspconfig").setup({
 				ensure_installed = {
-					-- "groovyls",
 					"gopls",
 					"pylsp",
-					-- "ts_ls",
 					"rust_analyzer",
 					"yamlls",
 					"terraformls",
