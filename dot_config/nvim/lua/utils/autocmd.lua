@@ -194,3 +194,13 @@ vim.api.nvim_create_autocmd("User", {
 --     desc = "don't autocomment new line",
 --     command = "setlocal formatoptions-=c fortmatoptions-=r formatoptions-=o",
 -- })
+--
+--
+-- Custom terminal
+vim.api.nvim_create_autocmd("TermOpen", {
+	group = vim.api.nvim_create_augroup("custom-term-open", { clear = true }),
+	callback = function()
+		vim.opt.number = false
+		vim.opt.relativenumber = false
+	end,
+})
