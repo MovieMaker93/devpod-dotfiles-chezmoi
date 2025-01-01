@@ -1,0 +1,48 @@
+font-family = JetBrainsMono Nerd Font
+font-size = 20
+theme = rose-pine
+cursor-style = block
+adjust-cell-height = 35%
+background = #000000
+background-opacity = 0.65
+#background-blur-radius = 20
+window-padding-balance = true
+copy-on-select = clipboard
+
+# keybindings
+keybind = alt+s>r=reload_config
+keybind = alt+s>x=close_surface
+
+keybind = alt+s>n=new_window
+
+# tabs 
+keybind = alt+s>c=new_tab
+keybind = alt+s>shift+l=next_tab
+keybind = alt+s>shift+h=previous_tab
+
+keybind = alt+s>comma=move_tab:-1
+keybind = alt+s>period=move_tab:1
+
+# quick tab switch
+keybind = alt+s>1=goto_tab:1
+keybind = alt+s>2=goto_tab:2
+keybind = alt+s>3=goto_tab:3
+keybind = alt+s>4=goto_tab:4
+keybind = alt+s>5=goto_tab:5
+keybind = alt+s>6=goto_tab:6
+keybind = alt+s>7=goto_tab:7
+keybind = alt+s>8=goto_tab:8
+keybind = alt+s>9=goto_tab:9
+
+# split
+keybind = alt+s>ctrl+v=new_split:right
+keybind = alt+s>ctrl+h=new_split:down
+keybind = alt+s>e=equalize_splits
+
+keybind = alt+s>j=goto_split:bottom
+keybind = alt+s>k=goto_split:top
+keybind = alt+s>h=goto_split:left
+keybind = alt+s>l=goto_split:right
+
+keybind = alt+s>z=toggle_split_zoom
+
