@@ -4,7 +4,6 @@ local ls = require("luasnip")
 local custom_snips = NeovimPath .. "/lua/snippets"
 require("luasnip.loaders.from_lua").load({ paths = { custom_snips } })
 require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip").filetype_extend("java", { "groovy" })
 
 ls.config.set_config({
 	-- This tells LuaSnip to remember to keep around the last snippet.
