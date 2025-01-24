@@ -43,7 +43,7 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Source current file
 vim.keymap.set("n", "<leader><leader>", function()
-	vim.cmd("so")
+  vim.cmd("so")
 end)
 
 -- Resize windows
@@ -66,13 +66,12 @@ vim.keymap.set("n", "<leader>gtr", "<cmd>GoTestRun<CR>")
 vim.keymap.set("n", "<leader>ti", "<cmd>EnableInline<CR>")
 
 -- exit file/inspect current tree
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>i", vim.cmd.InspectTree)
 
 -- vim.keymap.set("n", "gb", "<Cmd>BufferLinePick<CR>")
 vim.keymap.set("n", "gb", function()
-	local user_input = vim.fn.input("Enter buffer number: ")
-	vim.api.nvim_command("BufferLineGoToBuffer" .. user_input)
+  local user_input = vim.fn.input("Enter buffer number: ")
+  vim.api.nvim_command("BufferLineGoToBuffer" .. user_input)
 end)
 vim.keymap.set("n", "gn", "<Cmd>BufferLineCycleNext<CR>")
 vim.keymap.set("n", "gp", "<Cmd>BufferLineCyclePrev<CR>")
