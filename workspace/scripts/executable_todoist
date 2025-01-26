@@ -1,0 +1,34 @@
+#! /usr/bin/zsh
+
+set -e
+
+fetch_daily_tasks ()
+{
+    tasks=$(curl -X GET \
+        "https://api.todoist.com/rest/v2/tasks?filter=today"\
+        -H "Authorization: Bearer $TODOIST_API_KEY")
+
+            echo "$tasks" | jq -c '.[] | {id: .id, content: .content}'
+        }
+
+write_tasks_today_note (){
+    today=$(date +"%d-%m-%Y")
+    tomorrow=$(date -d "tomorrow" +"%d-%m-%Y")
+    yesterday=$(date -d "yesterday" +"%d-%m-%Y")
+    file="${VAULT}Journal/$today.md"
+    echo $file
+    
+    if [ -f "$file" ]; then
+        echo "" >> "$file"
+    fetch_daily_tasks | while read -r task; do
+            # Extract the task content using jq
+            task_content=$(echo "$task" | jq -r '.content')
+            echo "- [ ] $task_content" >> "$file"
+        done
+
+        echo "Tasks written to $file"
+    fi
+}
+
+# Call the function and store its output
+write_tasks_today_note
