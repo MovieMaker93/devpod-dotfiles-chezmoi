@@ -52,7 +52,7 @@ return {
 				buffer = {
 					name = "Buffer",
 					enabled = true,
-					max_items = 3,
+					max_items = 5,
 					min_keyword_length = 3,
 					module = "blink.cmp.sources.buffer",
 					score_offset = 15, -- the higher the number, the higher the priority
