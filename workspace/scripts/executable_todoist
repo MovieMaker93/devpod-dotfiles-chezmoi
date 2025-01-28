@@ -1,14 +1,12 @@
 #! /usr/bin/zsh
 
-set -e
-
 fetch_daily_tasks ()
 {
     tasks=$(curl -X GET \
         "https://api.todoist.com/rest/v2/tasks?filter=today"\
         -H "Authorization: Bearer $TODOIST_API_KEY")
 
-            echo "$tasks" | jq -c '.[] | {id: .id, content: .content}'
+            echo "$tasks" | jq -c '.[] | {id: .id, content: .content, due: .due, duration: .duration}'
         }
 
 write_tasks_today_note (){
@@ -16,19 +14,84 @@ write_tasks_today_note (){
     tomorrow=$(date -d "tomorrow" +"%d-%m-%Y")
     yesterday=$(date -d "yesterday" +"%d-%m-%Y")
     file="${VAULT}Journal/$today.md"
-    echo $file
     
     if [ -f "$file" ]; then
         echo "" >> "$file"
     fetch_daily_tasks | while read -r task; do
-            # Extract the task content using jq
+            # Extract the task content and due time using jq
+            task_id=$(echo "$task" | jq -r '.id')
+            task_datetime=$(echo "$task" | jq -r '.due.datetime // empty')
             task_content=$(echo "$task" | jq -r '.content')
-            echo "- [ ] $task_content" >> "$file"
+            task_duration=$(echo "$task" | jq -r '.duration.amount // empty')
+
+            task_output="- [ ] id: $task_id, content: $task_content"
+
+            if [[ -n "$task_datetime" ]]; then
+                formatted_datetime=$(date -d "$task_datetime" +"%H:%M")
+                task_output="${task_output} - $formatted_datetime"
+            fi
+            
+            if [[ -n "$task_duration" ]]; then
+            task_output="${task_output} - $task_duration min"
+            fi
+
+            echo "$task_output" >> "$file"
         done
 
         echo "Tasks written to $file"
     fi
 }
 
-# Call the function and store its output
-write_tasks_today_note
+get_daily_tasks ()
+{
+    fetch_daily_tasks | while read -r task; do
+            # Extract the task content and due time using jq
+            task_id=$(echo "$task" | jq -r '.id')
+            task_datetime=$(echo "$task" | jq -r '.due.datetime // empty')
+            task_content=$(echo "$task" | jq -r '.content')
+            task_duration=$(echo "$task" | jq -r '.duration.amount // empty')
+
+            task_output="id: $task_id, content: $task_content"
+
+            if [[ -n "$task_datetime" ]]; then
+                formatted_datetime=$(date -d "$task_datetime" +"%H:%M")
+                task_output="${task_output} - $formatted_datetime"
+            fi
+            
+            if [[ -n "$task_duration" ]]; then
+            task_output="${task_output} - ${task_duration}min"
+            fi
+
+            echo "$task_output"
+        done
+}
+
+if [ "$#" -eq 0 ]; then
+    refresh_tasks_to_obsidian
+else
+    case "$1" in
+        "sync")
+            write_tasks_today_note
+            ;;
+        "resync")
+            refresh_tasks_to_obsidian 
+            ;;
+        "refresh")
+            refresh_tasks_to_obsidian 
+            ;;
+        "add")
+            add_task_to_todoist 
+            ;;
+        "delete")
+            read -r id -p "Enter the task id to delete: "
+            delete_task_from_todoist $id 
+            ;;
+        "get")
+            get_daily_tasks
+            ;;
+        *) echo "No valid flag provided"
+            ;;
+    esac
+
+fi
+
