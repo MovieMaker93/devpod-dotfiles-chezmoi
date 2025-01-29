@@ -1,0 +1,68 @@
+#! /usr/bin/zsh
+
+set -e
+
+declare -A pomo_options
+pomo_options["work"]="45"
+pomo_options["break"]="10"
+
+pomodoro() {
+  val=$1
+  echo $val | lolcat
+  timer ${pomo_options["$val"]}m
+  espeak-ng "'$val' session done"
+  powershell.exe -Command "Import-Module BurntToast; New-BurntToastNotification -Text 'Pomodoro🍅', 'Session done 🍅'"
+}
+
+start_pomodoro() {
+  # Number of times to repeat the loop, default is 2
+  if [ -n "$1" ] && [ "$1" -eq "$1" ] 2>/dev/null; then
+    num_loops=$1
+  else
+   # Default loops
+    num_loops=2
+  fi
+
+  if [ -n "$2" ] && [ "$2" -eq "$2" ] 2>/dev/null; then
+    pomo_options["work"]=$2
+  fi
+
+  if [ -n "$3" ] && [ "$3" -eq "$3" ] 2>/dev/null; then
+    pomo_options["break"]=$3
+  fi
+
+  for i in $(seq 1 $num_loops); do
+    pomodoro "work"
+    pomodoro "break"
+  done
+}
+
+change_pomo() {
+  if [ -n "$1" ] && [ -n "$2" ]; then
+    pomo_options["$1"]="$2"
+    echo "The $1 time has been changed to $2 minutes"
+  else
+    echo "Please provide valid parameters: change_pomo [work/break] [time_in_minutes]"
+  fi
+}
+
+case "$1" in
+    "start") 
+        echo -n "How many times do you want to repeat the loop? "
+        read -r num_loops
+        echo -n "Work time: "
+        read -r work_time
+        echo -n "Break time: "
+        read -r break_time
+        start_pomodoro $num_loops $work_time $break_time
+        ;;
+    "work") pomodoro "work"
+        ;;
+    "break") pomodoro "break"
+        ;;
+    "change") change_pomo $2 $3
+        ;;
+    *) echo default
+        ;;
+esac
+

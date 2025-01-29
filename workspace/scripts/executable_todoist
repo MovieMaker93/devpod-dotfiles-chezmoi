@@ -9,12 +9,28 @@ fetch_daily_tasks ()
             echo "$tasks" | jq -c '.[] | {id: .id, content: .content, due: .due, duration: .duration}'
         }
 
+close_task() {
+    task_id=$1
+    response=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+        -H "Authorization: Bearer $TODOIST_API_KEY" \
+        "https://api.todoist.com/rest/v2/tasks/$task_id/close")
+
+    # Check the response code
+    if [[ "$response" -eq 204 ]]; then
+        echo "Task $task_id successfully closed."
+    else
+        echo "Failed to close task $task_id. HTTP status: $response"
+    fi
+}
+
 write_tasks_today_note (){
     today=$(date +"%d-%m-%Y")
     tomorrow=$(date -d "tomorrow" +"%d-%m-%Y")
     yesterday=$(date -d "yesterday" +"%d-%m-%Y")
     file="${VAULT}Journal/$today.md"
-    
+
+    awk '/## Daily Deeds & Rituals/ {print; exit} {print}' "$file" > temp.txt && mv temp.txt "$file"
+
     if [ -f "$file" ]; then
         echo "" >> "$file"
     fetch_daily_tasks | while read -r task; do
@@ -66,6 +82,38 @@ get_daily_tasks ()
         done
 }
 
+add_task_to_todoist () {
+    echo -n "Enter the task content: "
+    read -r content
+    echo -n "Enter the task duration in minutes: "
+    read -r duration
+    echo -n "Enter the task due date (tomorrow at 12:00): "
+    read -r due_string
+
+    body=$(printf '{"content": "%s", "duration": %s, "duration_unit": "minute", "due_string": "%s", "due_lang": "en", "priority": 4}' \
+        "$content" "$duration" "$due_string")
+
+    echo "Generated JSON Payload: $body"  # Debugging line   echo $body
+    if [[ -n "$content" ]]; then
+        response=$(curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $TODOIST_API_KEY" \
+            -H "X-Request-Id: $(uuidgen)" \
+            --data "$body"\
+                        "https://api.todoist.com/rest/v2/tasks")
+
+        # Check the response code
+        if echo "$response" | jq -e . >/dev/null 2>&1; then
+            echo "Task successfully added."
+        else
+            echo "Failed to add task. HTTP status: $response"
+        fi
+    else
+        echo "No task content provided. Operation canceled."
+    fi
+
+}
+
 if [ "$#" -eq 0 ]; then
     refresh_tasks_to_obsidian
 else
@@ -88,6 +136,16 @@ else
             ;;
         "get")
             get_daily_tasks
+            ;;
+        "close")
+            echo -n "Enter the task ID to close: "
+            read -r id
+
+            if [[ -n "$id" ]]; then
+                close_task "$id"  # Call the function with the ID as an argument
+            else
+                echo "No task ID provided. Operation canceled."
+            fi
             ;;
         *) echo "No valid flag provided"
             ;;
