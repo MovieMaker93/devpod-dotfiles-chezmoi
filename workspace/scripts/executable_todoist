@@ -2,11 +2,11 @@
 
 fetch_daily_tasks ()
 {
-    tasks=$(curl -X GET \
+    response=$(curl -X GET \
         "https://api.todoist.com/rest/v2/tasks?filter=today"\
         -H "Authorization: Bearer $TODOIST_API_KEY")
 
-            echo "$tasks" | jq -c '.[] | {id: .id, content: .content, due: .due, duration: .duration}'
+    echo "$response" | jq -c '.[] | {id: .id, content: .content, due: .due, duration: .duration}'
         }
 
 close_task() {
