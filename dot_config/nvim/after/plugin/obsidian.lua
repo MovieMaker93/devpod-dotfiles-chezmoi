@@ -1,6 +1,6 @@
 vim.keymap.set("n", "<leader>on", ":ObsidianNew<CR>")
 vim.keymap.set("n", "<C-t>", ":ObsidianToday<CR>")
 vim.keymap.set("n", "<C-n>", ":ObsidianNewFromTemplate<CR>")
-vim.keymap.set("n", "<leader>ne", ":ObsidianExtractNote<CR>")
+vim.keymap.set({ "n", "v" }, "<leader>ne", ":ObsidianExtractNote<CR>")
 vim.keymap.set("n", "<leader>ns", ":ObsidianSearch<CR>")
 vim.keymap.set("n", "<leader>fl", ":ObsidianFollowLink<CR>")
