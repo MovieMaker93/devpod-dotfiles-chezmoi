@@ -22,7 +22,7 @@ packages:
       - "yq"
       - "jq"
       - "zsh"
-      - "fzg"
+      - "fzf"
       - "tmux"
       - "make"
       - "python"

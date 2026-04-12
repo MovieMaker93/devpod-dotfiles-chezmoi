@@ -1,4 +1,6 @@
 #!/bin/bash
+set -eu
+
 {{ if eq .chezmoi.os "darwin" }}
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
@@ -17,10 +19,15 @@ EOF
 nix-env -iA nixpkgs.myPackages
 {{ end -}}
 
+if ! command -v bw >/dev/null 2>&1; then
+    echo "Bitwarden CLI not installed; skipping secret bootstrap"
+    exit 0
+fi
 
-
-bw login
-export BW_SESSION=$(bw unlock --raw)
+if [ -z "${BW_SESSION:-}" ]; then
+    bw login --check >/dev/null 2>&1 || bw login
+    export BW_SESSION="$(bw unlock --raw)"
+fi
 
 # Import gpg key
 GPG_KEY=$(bw get notes "GPG Private Key")

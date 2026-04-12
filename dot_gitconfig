@@ -1,5 +1,4 @@
 [user]
-	mail = alfofed@gmail.com
 	name = Alfonso Fortunato
 	email = alfofed@gmail.com
 	signingkey = FD95CBFD07806A28
@@ -11,5 +10,7 @@
     editor = nvim
 [init]
     defaultBranch = main
+[url "git@github.com:"]
+    insteadOf = https://github.com/
 [gpg]
     program = gpg

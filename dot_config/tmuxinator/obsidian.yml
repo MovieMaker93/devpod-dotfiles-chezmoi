@@ -1,5 +1,5 @@
-name: blog
-root: /home/moviemaker/personal-blog
+name: obsidian
+root: /home/moviemaker/workspace/note-taking/zettelkasten-vault/PKM system
 tmux_command: /home/moviemaker/bin/tmux-startup-safe
 startup_window: editor
 startup_pane: 1
@@ -7,10 +7,5 @@ windows:
   - editor:
       layout: main-vertical
       panes:
-        - nvim content/blog
-        - codex
-  - hugo:
-      layout: main-vertical
-      panes:
-        - hugo server
+        - nvim .
         - claude

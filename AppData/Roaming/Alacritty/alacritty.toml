@@ -1,0 +1,64 @@
+[terminal]
+[terminal.shell]
+program = "wsl.exe"
+args = ["--distribution", "Ubuntu-22.04"]
+
+[font]
+size = 16.0
+
+[colors.primary]
+background = "#282828"
+foreground = "#d4be98"
+
+[colors.normal]
+black = "#3c3836"
+red = "#ea6962"
+green = "#a9b665"
+yellow = "#d8a657"
+blue = "#7daea3"
+magenta = "#d3869b"
+cyan = "#89b482"
+white = "#d4be98"
+
+[colors.bright]
+black = "#504945"
+red = "#ea6962"
+green = "#a9b665"
+yellow = "#d8a657"
+blue = "#7daea3"
+magenta = "#d3869b"
+cyan = "#89b482"
+white = "#ddc7a1"
+
+[colors.cursor]
+cursor = "#d4be98"
+text = "#282828"
+
+[colors.selection]
+background = "#45403d"
+text = "#d4be98"
+
+[cursor]
+style.shape = "Block"
+style.blinking = "On"
+blink_interval = 500
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[window]
+padding.x = 0
+padding.y = 0
+decorations = "full"
+opacity = 1.0
+
+[[keyboard.bindings]]
+key = "V"
+mods = "Control"
+action = "Paste"
+
+[[keyboard.bindings]]
+key = "C"
+mods = "Control|Shift"
+action = "Copy"

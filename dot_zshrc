@@ -1,98 +1,151 @@
-setopt prompt_subst
-source <(kubectl completion zsh)
-
-## ZSH PLUGINS ##
-# Source usefulsh plugins
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-source_if_exists () {
-    if test -r "$1"; then
+source_if_exists() {
+    if [[ -r "$1" ]]; then
         source "$1"
     fi
 }
 
-## STARSHIP CONFIG ##
-eval "$(starship init zsh)"
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
+path_prepend() {
+    [[ -d "$1" ]] && path=("$1" $path)
+}
 
-## ZELLIJ ##
-# zsh <(curl -L zellij.dev/launch)
+fpath_prepend() {
+    [[ -d "$1" ]] && fpath=("$1" $fpath)
+}
 
-export EDITOR='nvim'
+load_nvm() {
+    unset -f nvm node npm npx corepack
+    source_if_exists "$NVM_DIR/nvm.sh"
+    source_if_exists "$NVM_DIR/bash_completion"
+}
+
+for cmd in nvm node npm npx corepack; do
+    eval "${cmd}() { load_nvm; ${cmd} \"\$@\"; }"
+done
+
+typeset -U path fpath
+setopt prompt_subst
+setopt auto_cd
+
+export EDITOR="nvim"
 export REPOS="$HOME/Repos"
 export GITUSER="MovieMaker93"
 export GHREPOS="$REPOS/github.com/$GITUSER"
-export WORKSPACE=$HOME/workspace
-export DOTFILES=$HOME/.local/share/chezmoi
-export VAULT="$WORKSPACE/note-taking/zettelkasten-vault/PKM system/"
+export WORKSPACE="$HOME/workspace"
+export DOTFILES="$HOME/.local/share/chezmoi"
+export VAULT="$WORKSPACE/note-taking/zettelkasten-vault/PKM system"
 export SCRIPTS="$WORKSPACE/scripts"
 export HOMELAB="$GHREPOS/homelab"
-export TERM=screen-256color
-export XDG_CONFIG_HOME=$HOME/.config
+export TERM="screen-256color"
+export XDG_CONFIG_HOME="$HOME/.config"
 export TMUXIFIER_LAYOUT_PATH="$HOME/tmux_layouts/layout/"
+export GOROOT="/usr/local/go"
+export GOPATH="$HOME/go"
+export LOCAL_BIN="$HOME/.local"
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+export NVM_DIR="$HOME/.config/nvm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export BUN_INSTALL="$HOME/.bun"
 
-# ## HISTORY ##
-# #############
-# HISTFILE=$HOME/.zsh_history
-# HISTSIZE=50000
-# SAVEHIST=50000
+path_prepend "$HOME/bin"
+path_prepend "$SCRIPTS"
+path_prepend "$GOPATH/bin"
+path_prepend "$GOROOT/bin"
+path_prepend "$LOCAL_BIN/bin"
+path_prepend "$HOME/.opencode/bin"
+path_prepend "$PNPM_HOME"
+path_prepend "$BUN_INSTALL/bin"
+path_prepend "/snap/bin"
+
+fpath_prepend "$HOME/.zsh/completions"
+fpath_prepend "$HOME/.zsh/zsh-completions/src"
+fpath_prepend "$HOME/.zfunc"
+fpath=(${fpath:#/usr/share/zsh/vendor-completions})
+
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
 
 setopt EXTENDED_HISTORY
 setopt HIST_VERIFY
-setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
-setopt HIST_IGNORE_DUPS          # Dont record an entry that was just recorded again.
-setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
-setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
-setopt HIST_IGNORE_SPACE         # Dont record an entry starting with a space.
-setopt HIST_SAVE_NO_DUPS         # Dont write duplicate entries in the history file.
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_SAVE_NO_DUPS
+setopt SHARE_HISTORY
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
 
-## ALIASES DIRECTORIES ##
+if command -v kubectl >/dev/null 2>&1; then
+    source <(kubectl completion zsh)
+fi
+
+source_if_exists "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source_if_exists "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source_if_exists "$HOME/zsh-alias/aliases.zsh"
 source_if_exists "$HOME/zsh-alias/git.zsh"
 source_if_exists "$HOME/.aliases.local"
 source_if_exists "$HOME/.fzf.zsh"
-
-## PATH ##
-export PATH=$HOME/bin:$SCRIPTS:$PATH
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-export LOCAL_BIN=$HOME/.local
-export PATH=$GOPATH/bin:$GOROOT/bin:$LOCAL_BIN/bin:$PATH
-
-## TMUX and TMUXINATOR ##
-# if [ -z "$TMUX" ]; then
-#     tmux attach -t default || tmux new -s default
-# fi
-# tmuxinator start dotfile
-# tmuxinator start blog
-# tmuxinator start vault
-# tmuxinator start golang
-
-# Turso
-# export PATH="/home/moviemaker/.turso:$PATH"
-
-# ~~~~~~~~~~~~~~~ Completion ~~~~~~~~~~~~~~~~~~~~~~~~
-
-fpath+=~/.zsh/zsh-completitions/src
-fpath+=~/.zfunc
-
+source_if_exists "$HOME/.deno/env"
+source_if_exists "$HOME/.zshrc.local"
 
 autoload -Uz compinit
-compinit -u
+if [[ -f "$HOME/.zcompdump" ]]; then
+    compinit -C
+else
+    compinit
+fi
 
 zstyle ':completion:*' menu select
 
-# --------------------- Direnv hook -------------------
-eval "$(direnv hook zsh)"
+if command -v starship >/dev/null 2>&1; then
+    eval "$(starship init zsh)"
+fi
 
-# Example to install completion:
-# talosctl completion zsh > ~/.zfunc/_talosctl
-neofetch
+if command -v direnv >/dev/null 2>&1; then
+    eval "$(direnv hook zsh)"
+fi
 
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+alias pai='bun /home/moviemaker/.claude/PAI/Tools/pai.ts'
+alias sum='fabric --pattern summarize'
+alias wis='fabric --pattern extract_wisdom'
+alias ysum='fabric --pattern summarize --yt-dlp-args="--sleep-requests 5" -y'
+alias ywis='fabric --pattern extract_wisdom --yt-dlp-args="--sleep-requests 5" -y'
+alias inbox-add='cp /mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d "\r")/Downloads/*.{m4a,mp3,wav,ogg} ~/recordings/inbox/ 2>/dev/null && echo "Moved to inbox" || echo "No audio files found in Downloads"'
+alias lifelog='bun ~/.claude/tools/lifelog-pipeline/index.ts'
+alias lifelog-review='bun ~/.claude/tools/lifelog-pipeline/review.ts'
+alias lifelog-run='lifelog && lifelog-review'
+alias claude-mem='bun "/home/moviemaker/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
+
+fpat() {
+    if [[ "$#" -lt 1 ]]; then
+        echo "Usage: fpat <pattern> [args...]"
+        return 1
+    fi
+
+    local pattern="$1"
+    shift
+    fabric --pattern "$pattern" "$@"
+}
+
+yt() {
+    if [[ "$#" -eq 0 || "$#" -gt 2 ]]; then
+        echo "Usage: yt [-t | --timestamps] youtube-link"
+        return 1
+    fi
+
+    local transcript_flag="--transcript"
+    if [[ "$1" == "-t" || "$1" == "--timestamps" ]]; then
+        transcript_flag="--transcript-with-timestamps"
+        shift
+    fi
+
+    fabric -y "$1" "$transcript_flag"
+}
+
+if command -v tmux >/dev/null 2>&1 && [[ -z "${TMUX:-}" ]] && [[ "${TERM_PROGRAM:-}" != "vscode" ]]; then
+    tmux attach -t default || tmux new -s default
+fi

@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Tmuxinator injects pane commands with send-keys. On this machine those pane
+# startup keys race zsh initialization, so the text appears in the pane without
+# executing. For the blog session, translate pane startup send-keys calls into
+# direct respawn-pane launches.
+if [[ "${1-}" == "send-keys" ]]; then
+  target=""
+  command_parts=()
+  skip_next=0
+
+  for arg in "$@"; do
+    if [[ "$skip_next" -eq 1 ]]; then
+      target="$arg"
+      skip_next=0
+      continue
+    fi
+
+    case "$arg" in
+      send-keys)
+        ;;
+      -t)
+        skip_next=1
+        ;;
+      C-m)
+        ;;
+      *)
+        command_parts+=("$arg")
+        ;;
+    esac
+  done
+
+  if [[ -n "$target" && "${#command_parts[@]}" -gt 0 ]]; then
+    command_string="${command_parts[*]}"
+    shell_bin="${SHELL:-/bin/zsh}"
+    respawn_command="$command_string; exec $shell_bin -i"
+    exec /snap/bin/tmux respawn-pane -k -t "$target" "$shell_bin -ic $(printf '%q' "$respawn_command")"
+  fi
+fi
+
+exec /snap/bin/tmux "$@"
